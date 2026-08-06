@@ -124,7 +124,7 @@ select {
   inset: 0;
   z-index: 10;
 
-  width: min(390px, calc(100vw - 48px));
+  width: min(400px, calc(100vw - 48px));
   height: 100%;
   margin-inline: auto;
 
@@ -133,12 +133,6 @@ select {
 
   perspective: 1400px;
   perspective-origin: center center;
-
-  /*
-   * Allows the user to pause between cards.
-   * Change to "none" for completely free scrolling.
-   */
-  scroll-snap-type: y proximity;
 
   overscroll-behavior: contain;
   scrollbar-width: none;
@@ -166,7 +160,8 @@ select {
   position: relative;
 
   display: flex;
-  width: 100%;
+  width: 390px;
+  margin-left: 5px;
 
   /* The card remains smaller than the full scroll area */
   height: 520px;
@@ -176,18 +171,12 @@ select {
   overflow: hidden;
 
   color: #161616;
-  background:
-    radial-gradient(
-      circle at 65% 30%,
-      rgba(255, 255, 255, 0.34),
-      transparent 34%
-    ),
-    var(--lime);
+  background: var(--lime);
 
-  border: 1px solid rgba(0, 0, 0, 0.55);
   border-radius: 16px;
+  box-shadow: 0px 0px 10px #66666640;
 
-  opacity: var(--card-opacity);
+  /* opacity: var(--card-opacity); */
 
   transform:
     translateY(var(--translate-y))
@@ -199,13 +188,7 @@ select {
   transform-style: preserve-3d;
   backface-visibility: hidden;
 
-  /*
-   * Proximity means it may snap only when already close.
-   * Remove this line for completely free scrolling.
-   */
-  scroll-snap-align: center;
-
-  will-change: transform, opacity;
+  will-change: transform;
 }
 
 .info-card + .info-card {
@@ -332,7 +315,20 @@ select {
 
   .card-scroller {
     width: min(340px, calc(100vw - 36px));
-    height: min(500px, calc(100vh - 130px));
+    height: 100%;
+
+    padding-block:
+      max(80px, calc((100vh - 480px) / 2))
+      max(80px, calc((100vh - 480px) / 2));
+  }
+
+  .info-card {
+    height: 480px;
+    min-height: 480px;
+  }
+
+  .info-card + .info-card {
+    margin-top: 140px;
   }
 
   .card-copy h1 {
