@@ -1,82 +1,366 @@
-/* app/globals.css */
-* {
+:root {
+  --lime: #DBE351;
+  --dark: #4B4F54;
+  --red: #D12836;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html,
 body {
-  margin: 0;
-  font-family: var(--font-bebas), sans-serif;
-  color: white;
-  background-image: url('/comingsoon.png');
   width: 100%;
   height: 100%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-color: black;
+  margin: 0;
 }
 
-.coming-soon {
-  min-height: 100vh;
+html {
+  background: var(--lime);
+}
+
+body {
   overflow: hidden;
-  
-  position: relative;
+  padding: 12px;
+  background: var(--lime);
+  color: var(--lime);
+  font-family: var(--font-roboto), sans-serif;
 }
 
-.nav {
-  width: 82%;
-  margin: 0 auto;
-  padding: 34px 0;
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.page-shell {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 24px);
+  min-height: 560px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      to right,
+      transparent calc(20% - 1px),
+      rgba(231, 237, 73, 0.1) 20%,
+      transparent calc(20% + 1px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(40% - 1px),
+      rgba(231, 237, 73, 0.1) 40%,
+      transparent calc(40% + 1px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(60% - 1px),
+      rgba(231, 237, 73, 0.1) 60%,
+      transparent calc(60% + 1px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(80% - 1px),
+      rgba(231, 237, 73, 0.1) 80%,
+      transparent calc(80% + 1px)
+    ),
+    radial-gradient(circle at center, #1d2130 0%, var(--dark) 65%);
+
+  border-radius: 44px;
+}
+
+.top-bar {
+  position: absolute;
+  top: 20px;
+  left: 38px;
+  right: 38px;
+  z-index: 20;
+
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  position: relative;
-  z-index: 2;
+  pointer-events: none;
 }
 
-.logo {
-  font-size: 70px;
-  color: #DBE351;
+.circle-button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  place-items: center;
+
+  border: 0;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--dark);
+  cursor: pointer;
+  pointer-events: auto;
 }
-.hero {
-  width: 82%;
-  margin: 0 auto;
-  min-height: calc(100vh - 110px);
-  display: flex;
-  align-items: center;
-  position: relative;
+
+.background-title {
+  position: absolute;
+  top: 70%;
+  left: 50%;
   z-index: 1;
+
+  width: 100%;
+  transform: translate(-50%, -45%);
+  white-space: nowrap;
+
+  color: var(--lime);
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 680px;
+  font-weight: 400;
+  line-height: 0.8;
+  text-align: center;
+  user-select: none;
 }
 
-.copy {
-  margin-top: 70px;
+.card-scroller {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+
+  width: min(390px, calc(100vw - 48px));
+  height: 100%;
+  margin-inline: auto;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  perspective: 1400px;
+  perspective-origin: center center;
+
+  /*
+   * Allows the user to pause between cards.
+   * Change to "none" for completely free scrolling.
+   */
+  scroll-snap-type: y proximity;
+
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+
+  /*
+   * Allows the first and last cards to reach the center.
+   * Card height is 520px.
+   */
+  padding-block:
+    max(100px, calc((100vh - 520px) / 2))
+    max(100px, calc((100vh - 520px) / 2));
 }
 
-.copy p {
-  font-size: 26px;
-  margin: 0 0 12px;
+.card-scroller::-webkit-scrollbar {
+  display: none;
 }
 
-.copy h1 {
+.info-card {
+  --rotate-x: 0deg;
+  --card-scale: 1;
+  --translate-z: 0px;
+  --translate-y: 0px;
+  --card-opacity: 1;
+
+  position: relative;
+
+  display: flex;
+  width: 100%;
+
+  /* The card remains smaller than the full scroll area */
+  height: 520px;
+  min-height: 520px;
+
+  flex-direction: column;
+  overflow: hidden;
+
+  color: #161616;
+  background:
+    radial-gradient(
+      circle at 65% 30%,
+      rgba(255, 255, 255, 0.34),
+      transparent 34%
+    ),
+    var(--lime);
+
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  border-radius: 16px;
+
+  opacity: var(--card-opacity);
+
+  transform:
+    translateY(var(--translate-y))
+    translateZ(var(--translate-z))
+    rotateX(var(--rotate-x))
+    scale(var(--card-scale));
+
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+
+  /*
+   * Proximity means it may snap only when already close.
+   * Remove this line for completely free scrolling.
+   */
+  scroll-snap-align: center;
+
+  will-change: transform, opacity;
+}
+
+.info-card + .info-card {
+  margin-top: 220px;
+}
+
+.card-copy {
+  min-height: 42%;
+  padding: 26px 22px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.55);
+}
+
+.card-eyebrow {
+  margin: 0 0 20px;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.card-copy h1 {
+  max-width: 330px;
   margin: 0;
-  font-size: clamp(58px, 6vw, 92px);
-  font-weight: 300;
-  letter-spacing: 3px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(21px, 2vw, 27px);
+  font-weight: 400;
+  line-height: 1.05;
 }
 
-@media (max-width: 900px) {
-  .nav,
-  .hero {
-    width: 88%;
+.stats-grid {
+  display: grid;
+  min-height: 51%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.stat {
+  display: flex;
+  min-height: 130px;
+  padding: 18px 16px 14px;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border-right: 1px solid rgba(0, 0, 0, 0.55);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.55);
+}
+
+.stat:nth-child(even) {
+  border-right: 0;
+}
+
+.stat:nth-child(n + 3) {
+  border-bottom: 0;
+}
+
+.stat strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.stat span {
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ticker {
+  display: flex;
+  height: 30px;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+
+  background: var(--red);
+  color: var(--lime);
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.footer {
+  position: absolute;
+  right: 60px;
+  bottom: 22px;
+  left: 60px;
+  z-index: 20;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: var(--lime);
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.footer div {
+  display: flex;
+  gap: 28px;
+}
+
+@media (max-width: 700px) {
+  body {
+    padding: 4px;
   }
 
-  .hero {
-    align-items: flex-start;
-    padding-top: 160px;
+  .page-shell {
+    height: calc(100vh - 8px);
+    border-radius: 28px;
   }
 
-  .copy h1 {
-    font-size: 52px;
+  .top-bar {
+    top: 16px;
+    right: 20px;
+    left: 20px;
+  }
+
+  .background-title {
+    font-size: 32vw;
+  }
+
+  .card-scroller {
+    width: min(340px, calc(100vw - 36px));
+    height: min(500px, calc(100vh - 130px));
+  }
+
+  .card-copy h1 {
+    font-size: 20px;
+  }
+
+  .stat strong {
+    font-size: 34px;
+  }
+
+  .footer {
+    right: 22px;
+    bottom: 16px;
+    left: 22px;
+  }
+
+  .footer div {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-scroller {
+    scroll-behavior: auto;
+  }
+
+  .info-card {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
