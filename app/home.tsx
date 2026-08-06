@@ -7,7 +7,7 @@ const cards = [
   {
     eyebrow: "ABOUT ME",
     title:
-      "I’M SAM PATEL, A DATA SCIENTIST WHO LOVES USING DATA TO SOLVE COMPLEX PROBLEMS AND DELIVER CLEAR, IMPACTFUL INSIGHTS.",
+      "I'M SAM PATEL, A DATA SCIENTIST WHO LOVES USING DATA TO SOLVE COMPLEX PROBLEMS AND DELIVER CLEAR, IMPACTFUL INSIGHTS.",
     stats: [
       { value: "110+", label: "PROJECTS COMPLETED" },
       { value: "12+", label: "YEARS EXPERIENCE" },
@@ -40,118 +40,118 @@ const cards = [
 ];
 
 export default function Home() {
-  const scrollerRef = useRef(null);
-  const cardRefs = useRef([]);
+  const scrollerRef = useRef<HTMLElement | null>(null);
+  const cardRefs = useRef<Array<HTMLElement | null>>([]);
 
-useEffect(() => {
-  const scroller = scrollerRef.current;
+  useEffect(() => {
+    const scroller = scrollerRef.current;
 
-  if (!scroller) {
-    return;
-  }
-
-  let frameId = null;
-
-  const updateCards = () => {
-    frameId = null;
-
-    const scrollerRect = scroller.getBoundingClientRect();
-    const scrollerCenter =
-      scrollerRect.top + scrollerRect.height / 2;
-
-    cardRefs.current.forEach((card) => {
-      if (!card) {
-        return;
-      }
-
-      const cardRect = card.getBoundingClientRect();
-      const cardCenter =
-        cardRect.top + cardRect.height / 2;
-
-      const distanceFromCenter =
-        cardCenter - scrollerCenter;
-
-      const progress =
-        distanceFromCenter / cardRect.height;
-
-      const limitedProgress = Math.max(
-        -1.25,
-        Math.min(1.25, progress),
-      );
-
-      const absoluteProgress = Math.min(
-        Math.abs(limitedProgress),
-        1,
-      );
-
-      const rotation = limitedProgress * -18;
-      const scale = 1 - absoluteProgress * 0.08;
-      const translateZ = -absoluteProgress * 140;
-      const translateY = limitedProgress * 24;
-      const opacity = 1 - absoluteProgress * 0.2;
-
-      card.style.setProperty(
-        "--rotate-x",
-        `${rotation}deg`,
-      );
-
-      card.style.setProperty(
-        "--card-scale",
-        `${scale}`,
-      );
-
-      card.style.setProperty(
-        "--translate-z",
-        `${translateZ}px`,
-      );
-
-      card.style.setProperty(
-        "--translate-y",
-        `${translateY}px`,
-      );
-
-      card.style.setProperty(
-        "--card-opacity",
-        `${opacity}`,
-      );
-    });
-  };
-
-  const requestUpdate = () => {
-    if (frameId !== null) {
+    if (!scroller) {
       return;
     }
 
-    frameId = window.requestAnimationFrame(updateCards);
-  };
+    let frameId: number | null = null;
 
-  scroller.addEventListener("scroll", requestUpdate, {
-    passive: true,
-  });
+    const updateCards = () => {
+      frameId = null;
 
-  window.addEventListener("resize", requestUpdate);
+      const scrollerRect = scroller.getBoundingClientRect();
+      const scrollerCenter =
+        scrollerRect.top + scrollerRect.height / 2;
 
-  updateCards();
+      cardRefs.current.forEach((card) => {
+        if (!card) {
+          return;
+        }
 
-  return () => {
-    scroller.removeEventListener("scroll", requestUpdate);
-    window.removeEventListener("resize", requestUpdate);
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter =
+          cardRect.top + cardRect.height / 2;
 
-    if (frameId !== null) {
-      window.cancelAnimationFrame(frameId);
-    }
-  };
-}, []);
+        const distanceFromCenter =
+          cardCenter - scrollerCenter;
+
+        const progress =
+          distanceFromCenter / cardRect.height;
+
+        const limitedProgress = Math.max(
+          -1.25,
+          Math.min(1.25, progress),
+        );
+
+        const absoluteProgress = Math.min(
+          Math.abs(limitedProgress),
+          1,
+        );
+
+        const rotation = limitedProgress * -18;
+        const scale = 1 - absoluteProgress * 0.08;
+        const translateZ = -absoluteProgress * 140;
+        const translateY = limitedProgress * 24;
+        const opacity = 1 - absoluteProgress * 0.2;
+
+        card.style.setProperty(
+          "--rotate-x",
+          `${rotation}deg`,
+        );
+
+        card.style.setProperty(
+          "--card-scale",
+          `${scale}`,
+        );
+
+        card.style.setProperty(
+          "--translate-z",
+          `${translateZ}px`,
+        );
+
+        card.style.setProperty(
+          "--translate-y",
+          `${translateY}px`,
+        );
+
+        card.style.setProperty(
+          "--card-opacity",
+          `${opacity}`,
+        );
+      });
+    };
+
+    const requestUpdate = () => {
+      if (frameId !== null) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(updateCards);
+    };
+
+    scroller.addEventListener("scroll", requestUpdate, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", requestUpdate);
+
+    updateCards();
+
+    return () => {
+      scroller.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
+  }, []);
 
   return (
     <main className="page-shell">
       <header className="top-bar">
-        <button className="circle-button" type="button" aria-label="Profile">
-          SP
-        </button>
-
-        <button className="circle-button" type="button" aria-label="Contact">
-          ✉
+        <button
+          className="circle-button"
+          type="button"
+          aria-label="Contact"
+        >
+          BUY
         </button>
       </header>
 
@@ -173,13 +173,19 @@ useEffect(() => {
             className="info-card"
           >
             <div className="card-copy">
-              <p className="card-eyebrow">{card.eyebrow}</p>
+              <p className="card-eyebrow">
+                {card.eyebrow}
+              </p>
+
               <h1>{card.title}</h1>
             </div>
 
             <div className="stats-grid">
               {card.stats.map((stat) => (
-                <div className="stat" key={stat.label}>
+                <div
+                  className="stat"
+                  key={stat.label}
+                >
                   <strong>{stat.value}</strong>
                   <span>{stat.label}</span>
                 </div>
@@ -197,7 +203,9 @@ useEffect(() => {
       </section>
 
       <footer className="footer">
-        <span>&copy; 2025. All rights reserved. DEMË</span>
+        <span>
+          &copy; 2025. All rights reserved. DEMË
+        </span>
 
         <div>
           <span>LICENSES</span>
