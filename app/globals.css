@@ -42,6 +42,7 @@ select {
   height: calc(100vh - 24px);
   min-height: 560px;
   overflow: hidden;
+  touch-action: none;
 
   background:
     linear-gradient(
@@ -74,35 +75,73 @@ select {
 }
 
 .top-bar {
-  position: absolute;
-  top: 20px;
-  left: 38px;
-  right: 38px;
-  z-index: 20;
-
+  margin: 60px;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   pointer-events: none;
 }
 
 .circle-button {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  padding: 0;
-  place-items: center;
+  position: relative;
 
+  width: 140px;
+  height: 140px;
+
+  padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--lime);
-  color: var(--dark);
+
+  background: transparent;
+
   cursor: pointer;
   pointer-events: auto;
 }
 
+.buy-now-ring {
+  animation: rotate-buy-now 14s linear infinite;
+}
+
+.buy-now-ring {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.buy-now-arrow {
+
+}
+
+.buy-now-ring {
+  animation: rotate-buy-now 10s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buy-now-ring {
+    animation: none;
+  }
+}
+
+.buy-now-arrow {
+  z-index: 2;
+}
+
+@keyframes rotate-buy-now {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .background-title {
   position: absolute;
-  top: 70%;
+  top: 60%;
   left: 50%;
   z-index: 1;
 
@@ -132,15 +171,11 @@ select {
   overflow-y: auto;
 
   perspective: 1400px;
-  perspective-origin: center center;
+  perspective-origin: center;
 
   overscroll-behavior: contain;
   scrollbar-width: none;
 
-  /*
-   * Allows the first and last cards to reach the center.
-   * Card height is 520px.
-   */
   padding-block:
     max(100px, calc((100vh - 520px) / 2))
     max(100px, calc((100vh - 520px) / 2));
@@ -148,6 +183,16 @@ select {
 
 .card-scroller::-webkit-scrollbar {
   display: none;
+}
+
+.card-scroller {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+.info-card {
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
 }
 
 .info-card {
@@ -275,16 +320,15 @@ select {
 .footer {
   position: absolute;
   right: 60px;
-  bottom: 22px;
-  left: 60px;
+  bottom: 24px;
+  left: 120px;
   z-index: 20;
 
   display: flex;
   justify-content: space-between;
 
   color: var(--lime);
-  font-family: "Courier New", monospace;
-  font-size: 10px;
+  font-size: 12px;
   pointer-events: none;
 }
 

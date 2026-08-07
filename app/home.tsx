@@ -40,13 +40,15 @@ const cards = [
 ];
 
 export default function Home() {
+  const pageRef = useRef<HTMLElement | null>(null);
   const scrollerRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
+    const page = pageRef.current;
     const scroller = scrollerRef.current;
 
-    if (!scroller) {
+    if (!page || !scroller) {
       return;
     }
 
@@ -88,7 +90,6 @@ export default function Home() {
         const scale = 1 - absoluteProgress * 0.08;
         const translateZ = -absoluteProgress * 140;
         const translateY = limitedProgress * 24;
-        const opacity = 1 - absoluteProgress * 0.2;
 
         card.style.setProperty(
           "--rotate-x",
@@ -109,11 +110,6 @@ export default function Home() {
           "--translate-y",
           `${translateY}px`,
         );
-
-        card.style.setProperty(
-          "--card-opacity",
-          `${opacity}`,
-        );
       });
     };
 
@@ -125,6 +121,20 @@ export default function Home() {
       frameId = window.requestAnimationFrame(updateCards);
     };
 
+    const handleWheel = (event: WheelEvent) => {
+      /*
+      * Prevent the browser/page from trying to scroll.
+      * Move the center scroller instead.
+      */
+      event.preventDefault();
+
+      scroller.scrollTop += event.deltaY;
+    };
+
+    page.addEventListener("wheel", handleWheel, {
+      passive: false,
+    });
+
     scroller.addEventListener("scroll", requestUpdate, {
       passive: true,
     });
@@ -134,6 +144,7 @@ export default function Home() {
     updateCards();
 
     return () => {
+      page.removeEventListener("wheel", handleWheel);
       scroller.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
 
@@ -144,14 +155,23 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="page-shell">
+    <main ref={pageRef} className="page-shell">
       <header className="top-bar">
         <button
           className="circle-button"
           type="button"
           aria-label="Contact"
         >
-          BUY
+          <img
+            src="/buynow.svg"
+            alt=""
+            className="buy-now-ring"
+          />
+          <img
+            src="/arrow.svg"
+            alt=""
+            className="buy-now-arrow"
+          />
         </button>
       </header>
 
@@ -208,8 +228,8 @@ export default function Home() {
         </span>
 
         <div>
-          <span>LICENSES</span>
-          <span>POWERED BY NEXT.JS</span>
+          {/* <span>LICENSES</span>
+          <span>POWERED BY NEXT.JS</span> */}
         </div>
       </footer>
     </main>
