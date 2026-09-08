@@ -7,7 +7,7 @@ import CardHead from "./components/CardHead";
 const cards = [
   {
     eyebrow: "ABOUT ME",
-    cardNo: "01/03",
+    cardNo: "01/04",
     productTitle: "MATTE FINISH.\nSTRONG HOLD.",
     productBody:
       "A plant-based styling clay crafted for effortless texture, lasting hold and a natural matte finish.",
@@ -23,7 +23,7 @@ const cards = [
     ],
   },
   {
-    cardNo: "02/03",
+    cardNo: "02/04",
     eyebrow: "EXPERIENCE",
     title:
       "I TURN COMPLEX DATA INTO SIMPLE, USEFUL PRODUCTS THAT HELP PEOPLE MAKE BETTER DECISIONS.",
@@ -35,7 +35,7 @@ const cards = [
     ],
   },
   {
-    cardNo: "03/03",
+    cardNo: "03/04",
     eyebrow: "SELECTED WORK",
     showcaseTitle: "CREAMY TEXTURE.\nEASY TO STYLE.",
     showcaseBody:
@@ -49,6 +49,16 @@ const cards = [
       { value: "14", label: "DATA PIPELINES" },
       { value: "9", label: "AWARDS WON" },
     ],
+  },
+  {
+    cardNo: "04 / 04",
+    eyebrow: "STOCKLIST",
+    stocklistKicker: "AVAILABLE STOCKLIST AT:",
+    stocklistTitle: "DEE YONDER\nMEN'S HAIR STUDIO",
+    stocklistAddress: "95A Club St,\nSingapore 069463",
+    stocklistCaption: "PREMIUM GROOMING.\nREAL RESULTS.",
+    stocklistSignoff: "See you\nthere.",
+    stocklistImage: "/barberchair.png",
   },
 ];
 
@@ -261,6 +271,7 @@ export default function Home() {
           const isProductCard = index === 0;
           const isFeatureCard = index === 1;
           const isShowcaseCard = index === 2;
+          const isStocklistCard = index === 3;
 
           return (
             <article
@@ -268,7 +279,7 @@ export default function Home() {
               ref={(element) => {
                 cardRefs.current[index] = element;
               }}
-              className={`info-card ${isProductCard ? "product-card" : ""} ${isFeatureCard ? "feature-card" : ""} ${isShowcaseCard ? "showcase-card" : ""}`}
+              className={`info-card ${isProductCard ? "product-card" : ""} ${isFeatureCard ? "feature-card" : ""} ${isShowcaseCard ? "showcase-card" : ""} ${isStocklistCard ? "stocklist-card" : ""}`}
             >
               {isProductCard ? (
                 <>
@@ -354,6 +365,49 @@ export default function Home() {
                       className="showcase-image"
                     />
                   </div>
+                </>
+              ) : isStocklistCard ? (
+                <>
+                  <CardHead left="DEMË" right={card.cardNo} />
+
+                  <div className="stocklist-body">
+                    <p className="stocklist-kicker">{card.stocklistKicker}</p>
+
+                    <h2>
+                      {card.stocklistTitle?.split("\n").map((line) => (
+                        <span key={line}>{line}</span>
+                      ))}
+                    </h2>
+
+                    <div className="stocklist-address-row">
+                      <img
+                        src="/map.svg"
+                        alt=""
+                        className="stocklist-pin"
+                        aria-hidden="true"
+                      />
+
+                      <p>
+                        {card.stocklistAddress?.split("\n").map((line) => (
+                          <span key={line}>{line}</span>
+                        ))}
+                      </p>
+                    </div>
+
+                    <p className="stocklist-caption">
+                      {card.stocklistCaption?.split("\n").map((line) => (
+                        <span key={line}>{line}</span>
+                      ))}
+                    </p>
+
+                    <img
+                      src={card.stocklistImage}
+                      alt="Barber chair at Dee Yonder Men's Hair Studio"
+                      className="stocklist-image"
+                    />
+                  </div>
+
+                  
                 </>
               ) : (
                 <>

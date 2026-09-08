@@ -250,6 +250,10 @@ select {
   padding: 0;
 }
 
+.info-card.stocklist-card {
+  padding: 0;
+}
+
 .card-head {
   display: flex;
   justify-content: space-between;
@@ -459,6 +463,123 @@ select {
   object-position: center bottom;
 }
 
+.stocklist-body {
+  position: relative;
+  padding: 24px 24px 0;
+  overflow: hidden;
+}
+
+.stocklist-kicker {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1;
+}
+
+.stocklist-body h2 {
+  margin: 8px 0 0;
+
+  font-family: var(--font-bebas), sans-serif;
+  font-size: clamp(56px, 3.2vw, 74px);
+  font-weight: 400;
+  line-height: 0.84;
+  letter-spacing: 0.01em;
+}
+
+.stocklist-body h2 span {
+  display: block;
+}
+
+.stocklist-address-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.stocklist-pin {
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.stocklist-address-row p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+.stocklist-address-row p span {
+  display: block;
+}
+
+.stocklist-caption {
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+
+  font-size: 12px;
+  line-height: 1;
+  float: right;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+}
+
+.stocklist-caption span {
+  display: block;
+}
+
+.stocklist-signoff {
+  margin: 12px 0 0;
+  font-size: 28px;
+  line-height: 0.95;
+  font-style: italic;
+}
+
+.stocklist-signoff span {
+  display: block;
+}
+
+.stocklist-image {
+  width: calc(100% + 48px);
+  max-width: none;
+  margin-top: -42px;
+  margin-left: -24px;
+  margin-bottom: -14px;
+  object-fit: cover;
+  object-position: center top;
+  height: 383px;
+}
+
+.stocklist-foot {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 14px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+.stocklist-foot-track {
+  display: flex;
+  width: max-content;
+  gap: 22px;
+  animation: stocklist-foot-marquee 14s linear infinite;
+  will-change: transform;
+}
+
+.stocklist-foot span {
+  display: block;
+  flex-shrink: 0;
+  color: #101010;
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
 @keyframes feature-foot-marquee {
   from {
     transform: translateX(0);
@@ -466,6 +587,16 @@ select {
 
   to {
     transform: translateX(calc(-50% - 10px));
+  }
+}
+
+@keyframes stocklist-foot-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 11px));
   }
 }
 
@@ -684,6 +815,58 @@ select {
     margin-left: -18px;
   }
 
+  .stocklist-body {
+    padding: 18px 18px 0;
+  }
+
+  .stocklist-body h2 {
+    font-size: clamp(50px, 3vw, 72px);
+    margin-top: 6px;
+  }
+
+  .stocklist-address-row {
+    gap: 10px;
+  }
+
+  .stocklist-pin {
+    width: 50px;
+    height: 50px;
+  }
+
+  .stocklist-address-row p {
+    font-size: 13px;
+  }
+
+  .stocklist-caption {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .stocklist-signoff {
+    margin-top: 9px;
+    font-size: 22px;
+  }
+
+  .stocklist-image {
+    width: calc(100% + 36px);
+    margin-top: -40px;
+    margin-left: -18px;
+    margin-bottom: -10px;
+    height: 320px;
+  }
+
+  .stocklist-foot {
+    padding: 10px 14px;
+  }
+
+  .stocklist-foot-track {
+    gap: 14px;
+  }
+
+  .stocklist-foot span {
+    font-size: 16px;
+  }
+
   .card-copy h1 {
     font-size: 20px;
   }
@@ -779,6 +962,10 @@ select {
   }
 
   .feature-foot-track {
+    animation: none;
+  }
+
+  .stocklist-foot-track {
     animation: none;
   }
 }
