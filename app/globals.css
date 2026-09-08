@@ -76,7 +76,8 @@ select {
 
 .top-bar {
   margin: 60px;
-  display: flex;
+  /* display: flex; */
+  display: none;
   justify-content: end;
   pointer-events: none;
 }
