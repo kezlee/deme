@@ -422,7 +422,7 @@ export default function Home() {
                   </div>
 
                   <div className="stats-grid">
-                    {card.stats.map((stat) => (
+                    {card.stats &&card.stats.map((stat) => (
                       <div
                         className="stat"
                         key={stat.label}
