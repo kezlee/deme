@@ -37,6 +37,10 @@ const cards = [
   {
     cardNo: "03/03",
     eyebrow: "SELECTED WORK",
+    showcaseTitle: "CREAMY TEXTURE.\nEASY TO STYLE.",
+    showcaseBody:
+      "Smooth and creamy clay that spread easily for effortless control and definition.",
+    showcaseImage: "/deme-with-hand.png",
     title:
       "A COLLECTION OF MACHINE LEARNING, ANALYTICS, AND VISUALIZATION PROJECTS BUILT FOR REAL-WORLD USE.",
     stats: [
@@ -256,6 +260,7 @@ export default function Home() {
         {cards.map((card, index) => {
           const isProductCard = index === 0;
           const isFeatureCard = index === 1;
+          const isShowcaseCard = index === 2;
 
           return (
             <article
@@ -263,7 +268,7 @@ export default function Home() {
               ref={(element) => {
                 cardRefs.current[index] = element;
               }}
-              className={`info-card ${isProductCard ? "product-card" : ""} ${isFeatureCard ? "feature-card" : ""}`}
+              className={`info-card ${isProductCard ? "product-card" : ""} ${isFeatureCard ? "feature-card" : ""} ${isShowcaseCard ? "showcase-card" : ""}`}
             >
               {isProductCard ? (
                 <>
@@ -328,6 +333,26 @@ export default function Home() {
                       <span>STYLE ✦ RESTYLE ✦ RINSE ✦ REPEAT ✦</span>
                       <span>STYLE ✦ RESTYLE ✦ RINSE ✦ REPEAT ✦</span>
                     </div>
+                  </div>
+                </>
+              ) : isShowcaseCard ? (
+                <>
+                  <CardHead left="DEMË" right={card.cardNo} />
+
+                  <div className="showcase-body">
+                    <h2>
+                      {card.showcaseTitle?.split("\n").map((line) => (
+                        <span key={line}>{line}</span>
+                      ))}
+                    </h2>
+
+                    <p>{card.showcaseBody}</p>
+
+                    <img
+                      src={card.showcaseImage}
+                      alt="Applying DEME clay by hand"
+                      className="showcase-image"
+                    />
                   </div>
                 </>
               ) : (

@@ -246,6 +246,10 @@ select {
   padding: 0;
 }
 
+.info-card.showcase-card {
+  padding: 0;
+}
+
 .card-head {
   display: flex;
   justify-content: space-between;
@@ -415,6 +419,44 @@ select {
   font-size: 14px;
   line-height: 1;
   white-space: nowrap;
+}
+
+.showcase-body {
+  display: flex;
+  padding: 26px 28px 0;
+  flex-direction: column;
+}
+
+.showcase-body h2 {
+  margin: 0;
+
+  font-family: var(--font-bebas), sans-serif;
+  font-size: clamp(56px, 4.2vw, 74px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+}
+
+.showcase-body h2 span {
+  display: block;
+}
+
+.showcase-body p {
+  max-width: 70%;
+  margin: 22px 0 0;
+
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.showcase-image {
+  width: calc(100% + 56px);
+  max-width: none;
+  margin-top: 0;
+  margin-left: -28px;
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 @keyframes feature-foot-marquee {
@@ -622,6 +664,26 @@ select {
     gap: 12px;
   }
 
+  .showcase-body {
+    padding: 20px 18px 0;
+  }
+
+  .showcase-body h2 {
+    font-size: clamp(52px, 3vw, 72px);
+  }
+
+  .showcase-body p {
+    max-width: 240px;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+
+  .showcase-image {
+    width: calc(100% + 36px);
+    margin-top: 10px;
+    margin-left: -18px;
+  }
+
   .card-copy h1 {
     font-size: 20px;
   }
@@ -631,9 +693,12 @@ select {
   }
 
   .footer {
-    right: 22px;
-    bottom: 16px;
-    left: 22px;
+    right: 50%;
+    bottom: 40px;
+    left: 50%;
+    width: max-content;
+    transform: translateX(-50%);
+    z-index: 0;
   }
 
   .footer div {
