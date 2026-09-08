@@ -6,6 +6,12 @@ import "./globals.css";
 const cards = [
   {
     eyebrow: "ABOUT ME",
+    productNo: "01/03",
+    productTitle: "MATTE FINISH.\nSTRONG HOLD.",
+    productBody:
+      "A plant-based styling clay crafted for effortless texture, lasting hold and a natural matte finish.",
+    productImage: "/deme-bottle.png",
+    productFacts: ["2.8oz / 80ml", "Plant Base", "Made in Malaysia"],
     title:
       "I'M SAM PATEL, A DATA SCIENTIST WHO LOVES USING DATA TO SOLVE COMPLEX PROBLEMS AND DELIVER CLEAR, IMPACTFUL INSIGHTS.",
     stats: [
@@ -184,42 +190,79 @@ export default function Home() {
         className="card-scroller"
         aria-label="Portfolio cards"
       >
-        {cards.map((card, index) => (
-          <article
-            key={card.eyebrow}
-            ref={(element) => {
-              cardRefs.current[index] = element;
-            }}
-            className="info-card"
-          >
-            <div className="card-copy">
-              <p className="card-eyebrow">
-                {card.eyebrow}
-              </p>
+        {cards.map((card, index) => {
+          const isProductCard = index === 0;
 
-              <h1>{card.title}</h1>
-            </div>
+          return (
+            <article
+              key={card.eyebrow}
+              ref={(element) => {
+                cardRefs.current[index] = element;
+              }}
+              className={`info-card ${isProductCard ? "product-card" : ""}`}
+            >
+              {isProductCard ? (
+                <>
+                  <div className="product-head">
+                    <span>DEMË</span>
+                    <span>{card.productNo}</span>
+                  </div>
 
-            <div className="stats-grid">
-              {card.stats.map((stat) => (
-                <div
-                  className="stat"
-                  key={stat.label}
-                >
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
-                </div>
-              ))}
-            </div>
+                  <div className="product-body">
+                    <h2>
+                      {card.productTitle?.split("\n").map((line) => (
+                        <span key={line}>{line}</span>
+                      ))}
+                    </h2>
 
-            <div className="ticker">
-              <span>BACKGROUND ✦</span>
-              <span>BACKGROUND ✦</span>
-              <span>BACKGROUND ✦</span>
-              <span>BACKGROUND ✦</span>
-            </div>
-          </article>
-        ))}
+                    <p>{card.productBody}</p>
+
+                    <img
+                      src={card.productImage}
+                      alt="Product"
+                      className="product-image"
+                    />
+                  </div>
+
+                  <div className="product-foot">
+                    {card.productFacts?.map((fact) => (
+                      <span key={fact}>{fact}</span>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="card-copy">
+                    <p className="card-eyebrow">
+                      {card.eyebrow}
+                    </p>
+
+                    <h1>{card.title}</h1>
+                  </div>
+
+                  <div className="stats-grid">
+                    {card.stats.map((stat) => (
+                      <div
+                        className="stat"
+                        key={stat.label}
+                      >
+                        <strong>{stat.value}</strong>
+                        <span>{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="ticker">
+                    <span>BACKGROUND ✦</span>
+                    <span>BACKGROUND ✦</span>
+                    <span>BACKGROUND ✦</span>
+                    <span>BACKGROUND ✦</span>
+                  </div>
+                </>
+              )}
+            </article>
+          );
+        })}
       </section>
 
       <footer className="footer">
