@@ -2,11 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import "./globals.css";
+import CardHead from "./components/CardHead";
 
 const cards = [
   {
     eyebrow: "ABOUT ME",
-    productNo: "01/03",
+    cardNo: "01/03",
     productTitle: "MATTE FINISH.\nSTRONG HOLD.",
     productBody:
       "A plant-based styling clay crafted for effortless texture, lasting hold and a natural matte finish.",
@@ -22,6 +23,7 @@ const cards = [
     ],
   },
   {
+    cardNo: "02/03",
     eyebrow: "EXPERIENCE",
     title:
       "I TURN COMPLEX DATA INTO SIMPLE, USEFUL PRODUCTS THAT HELP PEOPLE MAKE BETTER DECISIONS.",
@@ -33,6 +35,7 @@ const cards = [
     ],
   },
   {
+    cardNo: "03/03",
     eyebrow: "SELECTED WORK",
     title:
       "A COLLECTION OF MACHINE LEARNING, ANALYTICS, AND VISUALIZATION PROJECTS BUILT FOR REAL-WORLD USE.",
@@ -42,6 +45,29 @@ const cards = [
       { value: "14", label: "DATA PIPELINES" },
       { value: "9", label: "AWARDS WON" },
     ],
+  },
+];
+
+const featureRows = [
+  {
+    icon: "/strong-hold.svg",
+    title: "STRONG HOLD",
+    body: "Keeps your style in place all day long.",
+  },
+  {
+    icon: "/hair.svg",
+    title: "MATTE FINISH",
+    body: "No shine, just natural texture.",
+  },
+  {
+    icon: "/focus.svg",
+    title: "EASY RESTYLE",
+    body: "Restyle throughout the day without stiffness.",
+  },
+  {
+    icon: "/wash.svg",
+    title: "EASY WASH",
+    body: "Rinses out cleanly with shampoo.",
   },
 ];
 
@@ -229,6 +255,7 @@ export default function Home() {
       >
         {cards.map((card, index) => {
           const isProductCard = index === 0;
+          const isFeatureCard = index === 1;
 
           return (
             <article
@@ -236,14 +263,11 @@ export default function Home() {
               ref={(element) => {
                 cardRefs.current[index] = element;
               }}
-              className={`info-card ${isProductCard ? "product-card" : ""}`}
+              className={`info-card ${isProductCard ? "product-card" : ""} ${isFeatureCard ? "feature-card" : ""}`}
             >
               {isProductCard ? (
                 <>
-                  <div className="product-head">
-                    <span>DEMË</span>
-                    <span>{card.productNo}</span>
-                  </div>
+                  <CardHead left="DEMË" right={card.cardNo} />
 
                   <div className="product-body">
                     <h2>
@@ -267,8 +291,49 @@ export default function Home() {
                     ))}
                   </div>
                 </>
+              ) : isFeatureCard ? (
+                <>
+                  <CardHead left="DEMË" right={card.cardNo} />
+
+                  <div className="feature-body">
+                    <p className="feature-kicker">WHY DEMË?</p>
+
+                    <h2>
+                      <span>STRONG HOLD.</span>
+                      <span>NATURAL LOOK.</span>
+                    </h2>
+
+                    <ul className="feature-list">
+                      {featureRows.map((row) => (
+                        <li key={row.title}>
+                          <img
+                            src={row.icon}
+                            alt=""
+                            className="feature-icon"
+                            aria-hidden="true"
+                          />
+
+                          <div className="feature-copy">
+                            <strong>{row.title}</strong>
+                            <p>{row.body}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="feature-foot">
+                    <div className="feature-foot-track" aria-hidden="true">
+                      <span>STYLE ✦ RESTYLE ✦ RINSE ✦ REPEAT ✦</span>
+                      <span>STYLE ✦ RESTYLE ✦ RINSE ✦ REPEAT ✦</span>
+                      <span>STYLE ✦ RESTYLE ✦ RINSE ✦ REPEAT ✦</span>
+                    </div>
+                  </div>
+                </>
               ) : (
                 <>
+                  <CardHead left="DEMË" right={card.cardNo} />
+
                   <div className="card-copy">
                     <p className="card-eyebrow">
                       {card.eyebrow}
