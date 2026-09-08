@@ -42,7 +42,7 @@ select {
   height: calc(100vh - 24px);
   min-height: 560px;
   overflow: hidden;
-  touch-action: none;
+  touch-action: pan-y;
 
   background:
     linear-gradient(
@@ -171,6 +171,7 @@ select {
   perspective-origin: center;
 
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 
   padding-block:
@@ -553,10 +554,5 @@ select {
 @media (prefers-reduced-motion: reduce) {
   .card-scroller {
     scroll-behavior: auto;
-  }
-
-  .info-card {
-    transform: none !important;
-    opacity: 1 !important;
   }
 }

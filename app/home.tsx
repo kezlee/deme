@@ -59,6 +59,8 @@ export default function Home() {
     }
 
     let frameId: number | null = null;
+    let touchStartY = 0;
+    let touchStartScrollTop = 0;
 
     const updateCards = () => {
       frameId = null;
@@ -137,7 +139,40 @@ export default function Home() {
       scroller.scrollTop += event.deltaY;
     };
 
+    const handleTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+
+      if (!touch) {
+        return;
+      }
+
+      touchStartY = touch.clientY;
+      touchStartScrollTop = scroller.scrollTop;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+
+      if (!touch) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const deltaY = touch.clientY - touchStartY;
+      scroller.scrollTop = touchStartScrollTop - deltaY;
+      requestUpdate();
+    };
+
     page.addEventListener("wheel", handleWheel, {
+      passive: false,
+    });
+
+    page.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+
+    page.addEventListener("touchmove", handleTouchMove, {
       passive: false,
     });
 
@@ -151,6 +186,8 @@ export default function Home() {
 
     return () => {
       page.removeEventListener("wheel", handleWheel);
+      page.removeEventListener("touchstart", handleTouchStart);
+      page.removeEventListener("touchmove", handleTouchMove);
       scroller.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
 
