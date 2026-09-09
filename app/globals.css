@@ -17,14 +17,10 @@ body {
   margin: 0;
 }
 
-html {
-  background: var(--lime);
-}
-
 body {
   overflow: hidden;
   padding: 12px;
-  background: var(--lime);
+  background: var(--dark);
   color: var(--lime);
   font-family: var(--font-cutive-mono), serif;
 }
@@ -45,30 +41,6 @@ select {
   touch-action: pan-y;
 
   background:
-    linear-gradient(
-      to right,
-      transparent calc(20% - 1px),
-      rgba(231, 237, 73, 0.1) 20%,
-      transparent calc(20% + 1px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(40% - 1px),
-      rgba(231, 237, 73, 0.1) 40%,
-      transparent calc(40% + 1px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(60% - 1px),
-      rgba(231, 237, 73, 0.1) 60%,
-      transparent calc(60% + 1px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(80% - 1px),
-      rgba(231, 237, 73, 0.1) 80%,
-      transparent calc(80% + 1px)
-    ),
     radial-gradient(circle at center, #1d2130 0%, var(--dark) 65%);
 
   border-radius: 44px;
