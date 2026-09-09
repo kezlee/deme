@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Roboto } from "next/font/google";
+import { Bebas_Neue, Roboto, Cutive_Mono } from "next/font/google";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -14,6 +14,12 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 
+const cutiveMono = Cutive_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-cutive-mono",
+});
+
 export const metadata: Metadata = {
   title: "Home",
   description: "HOME",
@@ -25,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bebasNeue.variable} ${roboto.variable}`}>
+    <html lang="en" className={`${bebasNeue.variable} ${roboto.variable} ${cutiveMono.variable}`}>
       <body>{children}</body>
     </html>
   );

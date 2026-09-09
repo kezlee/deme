@@ -11,7 +11,7 @@ const cards = [
     productTitle: "MATTE FINISH.\nSTRONG HOLD.",
     productBody:
       "A plant-based styling clay crafted for effortless texture, lasting hold and a natural matte finish.",
-    productImage: "/deme-bottle.png",
+    productImage: "/deme-tub.png",
     productFacts: ["2.8oz / 80ml", "Plant Base", "Made in Malaysia"],
     title:
       "I'M SAM PATEL, A DATA SCIENTIST WHO LOVES USING DATA TO SOLVE COMPLEX PROBLEMS AND DELIVER CLEAR, IMPACTFUL INSIGHTS.",
@@ -53,7 +53,7 @@ const cards = [
   {
     cardNo: "04 / 04",
     eyebrow: "STOCKLIST",
-    stocklistKicker: "AVAILABLE STOCKLIST AT:",
+    stocklistKicker: "Available Stocklist At:",
     stocklistTitle: "DEE YONDER\nMEN'S HAIR STUDIO",
     stocklistAddress: "95A Club St,\nSingapore 069463",
     stocklistCaption: "PREMIUM GROOMING.\nREAL RESULTS.",
@@ -400,11 +400,11 @@ export default function Home() {
                       ))}
                     </p>
 
-                    <img
+                    {/* <img
                       src={card.stocklistImage}
                       alt="Barber chair at Dee Yonder Men's Hair Studio"
                       className="stocklist-image"
-                    />
+                    /> */}
                   </div>
 
                   
