@@ -319,7 +319,7 @@ select {
   margin: 0;
 
   font-family: var(--font-bebas), sans-serif;
-  font-size: clamp(56px, 5.2vw, 74px);
+  font-size: clamp(56px, 5.2vw, 69px);
   font-weight: 400;
   line-height: 0.88;
   letter-spacing: 0.01em;
@@ -371,6 +371,7 @@ select {
   margin: 0;
   color: #00000080;
   line-height: 1;
+  font-size: 14px;
 }
 
 .feature-foot {
@@ -411,7 +412,7 @@ select {
   margin: 0;
 
   font-family: var(--font-bebas), sans-serif;
-  font-size: clamp(56px, 4.2vw, 74px);
+  font-size: clamp(56px, 2.2vw, 74px);
   font-weight: 400;
   line-height: 0.9;
   letter-spacing: 0.01em;
@@ -422,8 +423,8 @@ select {
 }
 
 .showcase-body p {
-  max-width: 70%;
-  margin: 22px 0 0;
+  max-width: 83%;
+  margin: 16px 0 0;
 
   color: rgba(0, 0, 0, 0.75);
   font-size: 16px;
@@ -433,7 +434,7 @@ select {
 .showcase-image {
   width: calc(100% + 56px);
   max-width: none;
-  margin-top: -40px;
+  margin-top: -30px;
   margin-left: -28px;
   object-fit: contain;
   object-position: center bottom;
@@ -456,7 +457,7 @@ select {
   margin: 8px 0 0;
 
   font-family: var(--font-bebas), sans-serif;
-  font-size: clamp(56px, 3.2vw, 74px);
+  font-size: clamp(56px, 2.2vw, 74px);
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.01em;
