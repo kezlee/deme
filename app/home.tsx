@@ -283,7 +283,7 @@ export default function Home() {
             >
               {isProductCard ? (
                 <>
-                  <CardHead left="DEMË" right={card.cardNo} />
+                  <CardHead left="" right={card.cardNo} />
 
                   <div className="product-body">
                     <h2>
@@ -309,7 +309,7 @@ export default function Home() {
                 </>
               ) : isFeatureCard ? (
                 <>
-                  <CardHead left="DEMË" right={card.cardNo} />
+                  <CardHead left="" right={card.cardNo} />
 
                   <div className="feature-body">
                     <p className="feature-kicker">WHY DEMË?</p>
@@ -348,7 +348,7 @@ export default function Home() {
                 </>
               ) : isShowcaseCard ? (
                 <>
-                  <CardHead left="DEMË" right={card.cardNo} />
+                  <CardHead left="" right={card.cardNo} />
 
                   <div className="showcase-body">
                     <h2>
@@ -368,7 +368,7 @@ export default function Home() {
                 </>
               ) : isStocklistCard ? (
                 <>
-                  <CardHead left="DEMË" right={card.cardNo} />
+                  <CardHead left="" right={card.cardNo} />
 
                   <div className="stocklist-body">
                     <p className="stocklist-kicker">{card.stocklistKicker}</p>
@@ -411,7 +411,7 @@ export default function Home() {
                 </>
               ) : (
                 <>
-                  <CardHead left="DEMË" right={card.cardNo} />
+                  <CardHead left="" right={card.cardNo} />
 
                   <div className="card-copy">
                     <p className="card-eyebrow">
