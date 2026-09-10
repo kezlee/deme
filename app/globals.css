@@ -20,7 +20,11 @@ body {
 body {
   overflow: hidden;
   padding: 12px;
-  background: var(--dark);
+  background-color: var(--dark);
+  background-image: url('/bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--lime);
   font-family: var(--font-cutive-mono), serif;
 }
@@ -40,8 +44,8 @@ select {
   overflow: hidden;
   touch-action: pan-y;
 
-  background:
-    radial-gradient(circle at center, #1d2130 0%, var(--dark) 65%);
+  /* background:
+    radial-gradient(circle at center, #1d2130 0%, var(--dark) 65%); */
 
   border-radius: 44px;
 }
@@ -124,6 +128,7 @@ select {
   font-weight: 400;
   line-height: 0.8;
   text-align: center;
+  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
   user-select: none;
   /* opacity: 70%; */
 }
@@ -664,7 +669,11 @@ select {
 
   color: var(--lime);
   font-size: 12px;
+  background: var(--dark);
+  padding: 8px 12px;
+  /* width: 100%; */
   pointer-events: none;
+  z-index: 1;
 }
 
 .footer div {
@@ -834,7 +843,7 @@ select {
 
   .footer {
     right: 50%;
-    bottom: 40px;
+    bottom: 70px;
     left: 50%;
     width: max-content;
     transform: translateX(-50%);
