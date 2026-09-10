@@ -19,7 +19,6 @@ body {
 
 body {
   overflow: hidden;
-  padding: 12px;
   background-color: var(--dark);
   background-image: url('/bg.png');
   background-size: cover;
@@ -39,8 +38,8 @@ select {
 .page-shell {
   position: relative;
   width: 100%;
-  height: calc(100vh - 24px);
-  min-height: 560px;
+  height: 100vh;
+  /* min-height: 560px; */
   overflow: hidden;
   touch-action: pan-y;
 
@@ -669,7 +668,9 @@ select {
 
   color: var(--lime);
   font-size: 12px;
-  background: var(--dark);
+  font-weight: 700;
+  background: black;
+  opacity: 0.4;
   padding: 8px 12px;
   /* width: 100%; */
   pointer-events: none;
@@ -681,13 +682,14 @@ select {
   gap: 28px;
 }
 
-@media (max-width: 700px) {
-  body {
-    padding: 4px;
-  }
+.footer > span {
+  /* font-family: "Courier New", monospace; */
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
 
+@media (max-width: 700px) {
   .page-shell {
-    height: calc(100vh - 8px);
     border-radius: 28px;
   }
 
@@ -862,7 +864,6 @@ select {
   }
 
   .page-shell {
-    height: calc(100vh - 16px);
     border-radius: 34px;
   }
 
