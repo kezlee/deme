@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function CheckoutSuccessPage() {
+function CheckoutSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const status = searchParams.get("status");
@@ -52,5 +52,21 @@ export default function CheckoutSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function CheckoutSuccessFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#111319] px-4 py-8 text-[#dbe351]">
+      Loading payment status...
+    </div>
+  );
+}
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense fallback={<CheckoutSuccessFallback />}>
+      <CheckoutSuccessContent />
+    </Suspense>
   );
 }
