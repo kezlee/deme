@@ -5,6 +5,7 @@ const SINGAPORE_POSTAL_CODE_PATTERN = /^\d{6}$/;
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+
     const name = String(body.name || "").trim();
     const email = String(body.email || "").trim();
     const phone = String(body.phone || "").trim();
@@ -14,8 +15,20 @@ export async function POST(req: Request) {
     const postalCode = String(body.postalCode || "").trim();
     const country = String(body.country || "").trim();
     const quantity = Number.parseInt(String(body.quantity || ""), 10);
+    const compactAddress =
+      `${block} ${street}, ${unitNumber}, Singapore ${postalCode}`;
 
-    if (!name || !email || !phone || !block || !street || !unitNumber || !postalCode || !country) {
+
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !block ||
+      !street ||
+      !unitNumber ||
+      !postalCode ||
+      !country
+    ) {
       return NextResponse.json(
         { error: "Name, email, phone and all address fields are required" },
         { status: 400 }
@@ -62,39 +75,55 @@ export async function POST(req: Request) {
 
     const subtotal = unitPrice * quantity;
     const totalAmount = subtotal + shippingFee;
-    const compactAddress = `${block}, ${street}, ${unitNumber}, Singapore ${postalCode}`;
-    const purpose = `DEME Clay x${quantity} | Ship to: ${compactAddress}`.slice(0, 200);
 
     const orderId = `DEME-${Date.now()}`;
     const currency = process.env.HITPAY_CURRENCY || "SGD";
-    const configuredMethods = (process.env.HITPAY_PAYMENT_METHODS || "")
+
+    const configuredMethods = (
+      process.env.HITPAY_PAYMENT_METHODS || ""
+    )
       .split(",")
       .map((method) => method.trim())
       .filter(Boolean);
 
+    const apiBaseUrl = process.env.HITPAY_API_BASE_URL!;
+    const apiKey = process.env.HITPAY_API_KEY!;
+
+    //
+    // 2. Create payment request
+    //
     const payload: Record<string, unknown> = {
       amount: totalAmount.toFixed(2),
       currency,
       name,
       email,
       phone,
-      purpose,
+
+      address: {
+        line1: `${block} ${street}`,
+        line2: unitNumber,
+        city: "Singapore",
+        country: "SG",
+        postal_code: postalCode,
+      },
+
+      purpose: `DEMË Clay x${quantity} | Ship to: ${compactAddress}`.slice(0, 200),
       reference_number: orderId,
+
       redirect_url:
         `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success`,
     };
 
-    // Send payment_methods only when explicitly configured and enabled in HitPay.
     if (configuredMethods.length > 0) {
       payload.payment_methods = configuredMethods;
     }
 
     const response = await fetch(
-      `${process.env.HITPAY_API_BASE_URL}/v1/payment-requests`,
+      `${apiBaseUrl}/v1/payment-requests`,
       {
         method: "POST",
         headers: {
-          "X-BUSINESS-API-KEY": process.env.HITPAY_API_KEY!,
+          "X-BUSINESS-API-KEY": apiKey,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
@@ -104,7 +133,10 @@ export async function POST(req: Request) {
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      console.error("HitPay create payment error:", data);
+      console.error(
+        "HitPay create payment error:",
+        data
+      );
 
       return NextResponse.json(
         {
@@ -121,7 +153,6 @@ export async function POST(req: Request) {
       paymentUrl: data.url,
       paymentRequestId: data.id,
     });
-
   } catch (error) {
     console.error(error);
 
