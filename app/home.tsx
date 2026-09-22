@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./globals.css";
 import CardHead from "./components/CardHead";
 
@@ -86,6 +86,7 @@ const featureRows = [
 ];
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const pageRef = useRef<HTMLElement | null>(null);
   const scrollerRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
@@ -237,26 +238,10 @@ export default function Home() {
     };
   }, []);
 
+
+
   return (
     <main ref={pageRef} className="page-shell">
-      <header className="top-bar">
-        <button
-          className="circle-button"
-          type="button"
-          aria-label="Contact"
-        >
-          <img
-            src="/buynow.svg"
-            alt=""
-            className="buy-now-ring"
-          />
-          <img
-            src="/arrow.svg"
-            alt=""
-            className="buy-now-arrow"
-          />
-        </button>
-      </header>
 
       <div className="background-title" aria-hidden="true">
         DEMË
