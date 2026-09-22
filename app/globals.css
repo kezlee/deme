@@ -51,8 +51,8 @@ select {
 
 .top-bar {
   margin: 60px;
-  /* display: flex; */
-  display: none;
+  display: flex;
+  /* display: none; */
   justify-content: end;
   pointer-events: none;
 }
@@ -694,7 +694,7 @@ select {
   }
 
   .top-bar {
-    display: none;
+    /* display: none; */
   }
 
   .background-title {
