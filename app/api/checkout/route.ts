@@ -22,9 +22,6 @@ export async function POST(req: Request) {
       10
     );
 
-    const compactAddress =
-      `${block} ${street}, ${unitNumber}, Singapore ${postalCode}`;
-
     if (
       !name ||
       !email ||
@@ -238,11 +235,7 @@ export async function POST(req: Request) {
         postal_code: postalCode,
       },
 
-      purpose:
-        `DEMË Clay x${quantity} | Ship to: ${compactAddress}`.slice(
-          0,
-          200
-        ),
+      purpose: `DEMË Clay x${quantity}`,
 
       reference_number: orderNumber,
 
