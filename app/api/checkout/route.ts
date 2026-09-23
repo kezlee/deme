@@ -228,6 +228,8 @@ export async function POST(req: Request) {
       email,
       phone,
 
+      send_email: true,
+
       address: {
         line1: `${block} ${street}`,
         line2: unitNumber,
