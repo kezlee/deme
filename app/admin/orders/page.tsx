@@ -49,7 +49,7 @@ export default async function AdminOrdersPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#111319] px-4 py-8 text-white md:px-8 md:py-10">
+    <main className="min-h-screen bg-[#111319] px-4 py-8 text-white md:px-8 md:py-10 overflow-auto h-full">
       <div className="mx-auto max-w-7xl">
 
         <header className="flex flex-wrap items-center justify-between gap-4">
