@@ -36,6 +36,66 @@ const filters = [
   "completed",
 ] as const;
 
+const sgDateTimeFormatter = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Singapore",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false,
+});
+
+const sgDateFormatter = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Singapore",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
+function getPart(
+  parts: Intl.DateTimeFormatPart[],
+  type: Intl.DateTimeFormatPartTypes
+) {
+  return parts.find((part) => part.type === type)?.value || "";
+}
+
+function formatDateTimeSg(value: string) {
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return "-";
+  }
+
+  const parts = sgDateTimeFormatter.formatToParts(date);
+
+  const day = getPart(parts, "day");
+  const month = getPart(parts, "month");
+  const year = getPart(parts, "year");
+  const hour = getPart(parts, "hour");
+  const minute = getPart(parts, "minute");
+  const second = getPart(parts, "second");
+
+  return `${day}/${month}/${year}, ${hour}:${minute}:${second}`;
+}
+
+function formatDateSg(value: string) {
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return "-";
+  }
+
+  const parts = sgDateFormatter.formatToParts(date);
+
+  const day = getPart(parts, "day");
+  const month = getPart(parts, "month");
+  const year = getPart(parts, "year");
+
+  return `${day}/${month}/${year}`;
+}
+
 function getStatusClass(status: string) {
   switch (status) {
     case "processing":
@@ -263,10 +323,8 @@ export default function OrdersClient({
                     </td>
 
                     <td className="px-4 py-4 whitespace-nowrap text-white/50">
-                      {new Date(
+                      {formatDateTimeSg(
                         order.created_at
-                      ).toLocaleString(
-                        "en-SG"
                       )}
                     </td>
                   </tr>
@@ -336,10 +394,8 @@ export default function OrdersClient({
 
               <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
                 <span className="text-xs text-white/40">
-                  {new Date(
+                  {formatDateSg(
                     order.created_at
-                  ).toLocaleDateString(
-                    "en-SG"
                   )}
                 </span>
 
