@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Roboto, Cutive_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -33,8 +34,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${bebasNeue.variable} ${roboto.variable} ${cutiveMono.variable}`}>
-      <Analytics/> 
-      <body>{children}</body>
+      
+      <body>
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
