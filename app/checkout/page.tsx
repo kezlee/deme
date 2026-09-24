@@ -103,7 +103,7 @@ export default function CheckoutPage() {
           </div>
 
           <Link
-            href="/staging"
+            href="/"
             className="rounded-full border border-white/30 px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/80 transition hover:border-[#dbe351] hover:text-[#dbe351]"
           >
             Back
@@ -274,7 +274,7 @@ export default function CheckoutPage() {
               disabled={loading}
               className="mt-6 w-full rounded-full bg-[#dbe351] px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-black transition hover:bg-[#eef783] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? "Creating payment..." : "Proceed to HitPay"}
+              {loading ? "Creating payment..." : "Proceed to payment"}
             </button>
           </form>
 

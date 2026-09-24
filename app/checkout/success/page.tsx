@@ -44,7 +44,7 @@ function CheckoutSuccessContent() {
         ) : null}
         <div className="mt-6">
           <Link
-            href="/staging"
+            href="/"
             className="inline-flex rounded-full border border-[#1c3324] px-4 py-2 text-sm font-semibold uppercase tracking-[0.12em] text-[#1c3324] transition hover:bg-[#1c3324] hover:text-white"
           >
             Back to DEMË
