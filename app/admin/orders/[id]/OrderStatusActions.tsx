@@ -6,6 +6,8 @@ import { useState } from "react";
 type Props = {
   orderId: string;
   currentStatus: string;
+  currentTrackingCode?: string;
+  currentTrackingUrl?: string;
 };
 
 const nextStatusMap: Record<string, string | null> = {
@@ -19,13 +21,21 @@ const nextStatusMap: Record<string, string | null> = {
 export default function OrderStatusActions({
   orderId,
   currentStatus,
+  currentTrackingCode = "",
+  currentTrackingUrl =
+    "https://www.singpost.com/track-items",
 }: Props) {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [trackingCode, setTrackingCode] = useState("");
-  const [trackingUrl, setTrackingUrl] = useState("https://www.singpost.com/track-items");
+  const [trackingCode, setTrackingCode] = useState(
+    currentTrackingCode
+  );
+
+  const [trackingUrl, setTrackingUrl] = useState(
+    currentTrackingUrl
+  );
 
   const normalizedCurrentStatus =
     currentStatus.trim().toLowerCase();
@@ -80,8 +90,14 @@ export default function OrderStatusActions({
         setError(String(data.warning));
       }
 
-      setTrackingCode("");
-      setTrackingUrl("");
+      setTrackingCode(
+        trackingCode.trim()
+      );
+
+      setTrackingUrl(
+        trackingUrl.trim() ||
+          currentTrackingUrl
+      );
 
       router.refresh();
     } catch (updateError) {

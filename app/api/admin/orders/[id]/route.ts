@@ -235,6 +235,8 @@ export async function PATCH(
       .from("orders")
       .update({
         order_status: orderStatus,
+        tracking_code: trackingCode || null,
+        tracking_url: trackingUrl || null,
         updated_at: new Date().toISOString(),
       })
       .eq("id", id)
@@ -242,6 +244,25 @@ export async function PATCH(
       .single();
 
     if (error || !order) {
+      const missingTrackingColumn =
+        error?.code === "PGRST204" ||
+        error?.message
+          ?.toLowerCase()
+          .includes("tracking_code") ||
+        error?.message
+          ?.toLowerCase()
+          .includes("tracking_url");
+
+      if (missingTrackingColumn) {
+        return NextResponse.json(
+          {
+            error:
+              "Tracking columns are missing in your orders table. Add tracking_code and tracking_url columns in Supabase first.",
+          },
+          { status: 500 }
+        );
+      }
+
       console.error(
         "Unable to update order:",
         error

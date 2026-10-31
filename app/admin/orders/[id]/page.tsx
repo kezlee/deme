@@ -44,6 +44,8 @@ export default async function AdminOrderDetailPage({
       currency,
       payment_status,
       order_status,
+      tracking_code,
+      tracking_url,
       created_at,
       updated_at,
       hitpay_payment_id,
@@ -242,8 +244,31 @@ export default async function AdminOrderDetailPage({
             <OrderStatusActions
               orderId={order.id}
               currentStatus={order.order_status}
+              currentTrackingCode={
+                order.tracking_code || ""
+              }
+              currentTrackingUrl={
+                order.tracking_url ||
+                "https://www.singpost.com/track-items"
+              }
             />
           </div>
+
+          {order.tracking_code ? (
+            <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-4 text-sm">
+              <p className="text-xs uppercase tracking-[0.12em] text-white/50">
+                Saved Tracking
+              </p>
+
+              <p className="mt-2 text-white/90">
+                Code: {order.tracking_code}
+              </p>
+
+              <p className="mt-1 break-all text-white/70">
+                URL: {order.tracking_url || "-"}
+              </p>
+            </div>
+          ) : null}
         </section>
 
         {/* HitPay */}
