@@ -9,7 +9,8 @@ type Props = {
 };
 
 const nextStatusMap: Record<string, string | null> = {
-  processing: "packed",
+  pending: "processing",
+  processing: "shipped",
   packed: "shipped",
   shipped: "completed",
   completed: null,
@@ -23,11 +24,30 @@ export default function OrderStatusActions({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [trackingCode, setTrackingCode] = useState("");
+  const [trackingUrl, setTrackingUrl] = useState("https://www.singpost.com/track-items");
 
-  const nextStatus = nextStatusMap[currentStatus] ?? null;
+  const normalizedCurrentStatus =
+    currentStatus.trim().toLowerCase();
+
+  const nextStatus =
+    nextStatusMap[normalizedCurrentStatus] ?? null;
+
+  const requiresTrackingCode = nextStatus === "shipped";
 
   const updateStatus = async () => {
     if (!nextStatus) return;
+
+    if (
+      requiresTrackingCode &&
+      !trackingCode.trim()
+    ) {
+      setError(
+        "Tracking code is required before marking this order as shipped"
+      );
+
+      return;
+    }
 
     try {
       setLoading(true);
@@ -42,6 +62,8 @@ export default function OrderStatusActions({
           },
           body: JSON.stringify({
             order_status: nextStatus,
+            tracking_code: trackingCode.trim() || null,
+            tracking_url: trackingUrl.trim() || null,
           }),
         }
       );
@@ -53,6 +75,13 @@ export default function OrderStatusActions({
           data?.error || "Unable to update order"
         );
       }
+
+      if (data?.warning) {
+        setError(String(data.warning));
+      }
+
+      setTrackingCode("");
+      setTrackingUrl("");
 
       router.refresh();
     } catch (updateError) {
@@ -67,6 +96,7 @@ export default function OrderStatusActions({
   };
 
   const buttonLabel: Record<string, string> = {
+    processing: "Mark as Processing",
     packed: "Mark as Packed",
     shipped: "Mark as Shipped",
     completed: "Mark as Completed",
@@ -75,16 +105,52 @@ export default function OrderStatusActions({
   return (
     <div>
       {nextStatus ? (
-        <button
-          type="button"
-          disabled={loading}
-          onClick={updateStatus}
-          className="rounded-full bg-[#dbe351] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-black transition hover:bg-[#eef783] disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {loading
-            ? "Updating..."
-            : buttonLabel[nextStatus]}
-        </button>
+        <div className="space-y-3">
+          {requiresTrackingCode ? (
+            <div className="grid gap-3 md:grid-cols-2">
+              <label className="block text-xs uppercase tracking-[0.12em] text-white/65">
+                Tracking code
+                <input
+                  type="text"
+                  value={trackingCode}
+                  onChange={(event) =>
+                    setTrackingCode(event.target.value)
+                  }
+                  placeholder="e.g. SG123456789"
+                  className="mt-1.5 w-full rounded-lg border border-white/20 bg-black/35 px-3 py-2 text-sm uppercase tracking-[0.04em] text-white outline-none transition focus:border-[#dbe351]"
+                />
+              </label>
+
+              <label className="block text-xs uppercase tracking-[0.12em] text-white/65">
+                Tracking URL (optional)
+                <input
+                  type="url"
+                  value={trackingUrl}
+                  onChange={(event) =>
+                    setTrackingUrl(event.target.value)
+                  }
+                  placeholder="https://carrier.com/track/..."
+                  className="mt-1.5 w-full rounded-lg border border-white/20 bg-black/35 px-3 py-2 text-sm normal-case tracking-normal text-white outline-none transition focus:border-[#dbe351]"
+                />
+              </label>
+            </div>
+          ) : null}
+
+          <button
+            type="button"
+            disabled={
+              loading ||
+              (requiresTrackingCode &&
+                !trackingCode.trim())
+            }
+            onClick={updateStatus}
+            className="rounded-full bg-[#dbe351] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-black transition hover:bg-[#eef783] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {loading
+              ? "Updating..."
+              : buttonLabel[nextStatus]}
+          </button>
+        </div>
       ) : (
         <p className="text-sm text-green-300">
           Order completed
