@@ -244,9 +244,17 @@ select {
   font-size: 16px;
 }
 
+.product-card h2 {
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+}
+
 .product-body {
   display: flex;
-  padding: 16px;
+  padding: 16px 16px 0;
   flex-direction: column;
 }
 
@@ -275,7 +283,6 @@ select {
 
 .product-image {
   width: 100%;
-  margin-top: -0px;
 }
 
 .product-foot {
@@ -730,7 +737,7 @@ select {
   }
 
   .product-body {
-    padding: 16px;
+    padding: 16px 16px 0;
   }
 
   .product-body h2 {

@@ -282,9 +282,21 @@ export default function Home() {
                     <img
                       src={card.productImage}
                       alt="Product"
-                      className="product-image"
+                      className="product-image md:-mt-[50px] -mt-[30px]"
                     />
                   </div>
+
+                  <div className="inline-flex items-center justify-center space-x-2 md:-mt-8 -mt-5 mb-4">
+                    <h2 className="border-r border-gray-500/30 pr-2">$35</h2>
+                    <h2 className="line-through text-gray-500/30">$39</h2>
+                    <span className="text-sm bg-[#CD1C18]/20 text-[#CD1C18] font-semibold px-2 py-1 rounded-lg">SAVE 10%</span>
+                  </div>
+
+                  <button className="font-bold mb-6 bg-[var(--lime)] text-black px-4 py-2 space-x-2 rounded-lg items-center uppercase flex text-lg justify-center mx-8">
+                    <img src="/cart.svg" alt="cart" className="w-4 h-4"/>
+                    <span className="font-bold text-lg">Buy now</span>
+                    <img className="text-black fill-black w-6 h-6 rotate-31" src="/arrow-black.svg" alt=""/>
+                  </button>
 
                   <div className="product-foot">
                     {card.productFacts?.map((fact) => (
