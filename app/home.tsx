@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./globals.css";
 import CardHead from "./components/CardHead";
+import { useRouter } from "next/navigation";
 
 const cards = [
   {
@@ -87,6 +88,7 @@ const featureRows = [
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const pageRef = useRef<HTMLElement | null>(null);
   const scrollerRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
@@ -243,6 +245,15 @@ export default function Home() {
   return (
     <main ref={pageRef} className="page-shell">
 
+      <div className="hero-marquee" aria-label="Grand opening special">
+        <div className="hero-marquee-track">
+          <span>✦ GRAND OPENING SPECIAL — ENJOY FREE SHIPPING ON ALL ORDERS ✦</span>
+          <span>✦ GRAND OPENING SPECIAL — ENJOY FREE SHIPPING ON ALL ORDERS ✦</span>
+          <span>✦ GRAND OPENING SPECIAL — ENJOY FREE SHIPPING ON ALL ORDERS ✦</span>
+          <span>✦ GRAND OPENING SPECIAL — ENJOY FREE SHIPPING ON ALL ORDERS ✦</span>
+        </div>
+      </div>
+
       <div className="background-title" aria-hidden="true">
         DEMË
       </div>
@@ -292,7 +303,7 @@ export default function Home() {
                     <span className="text-sm bg-[#CD1C18]/20 text-[#CD1C18] font-semibold px-2 py-1 rounded-lg">SAVE 10%</span>
                   </div>
 
-                  <button className="font-bold mb-6 bg-[var(--lime)] text-black px-4 py-2 space-x-2 rounded-lg items-center uppercase flex text-lg justify-center mx-8">
+                  <button onClick={() => router.push("/checkout")} className="font-bold mb-6 bg-[var(--lime)] text-black px-4 py-2 space-x-2 rounded-lg items-center uppercase flex text-lg justify-center mx-8">
                     <img src="/cart.svg" alt="cart" className="w-4 h-4"/>
                     <span className="font-bold text-lg">Buy now</span>
                     <img className="text-black fill-black w-6 h-6 rotate-31" src="/arrow-black.svg" alt=""/>
