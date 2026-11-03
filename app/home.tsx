@@ -287,23 +287,22 @@ export default function Home() {
                         <span key={line}>{line}</span>
                       ))}
                     </h2>
-
-                    <p>{card.productBody}</p>
-
                     <img
                       src={card.productImage}
                       alt="Product"
                       className="product-image md:-mt-[50px] -mt-[30px]"
                     />
+
+                    <p className="md:-mt-8 -mt-5 mb-6">{card.productBody}</p>
                   </div>
 
-                  <div className="inline-flex items-center justify-center space-x-2 md:-mt-8 -mt-5 mb-4">
+                  <div className="inline-flex items-center justify-center space-x-2 mb-4">
                     <h2 className="border-r border-gray-500/30 pr-2">$35</h2>
                     <h2 className="line-through text-gray-500/30">$39</h2>
                     <span className="text-sm bg-[#CD1C18]/20 text-[#CD1C18] font-semibold px-2 py-1 rounded-lg">SAVE 10%</span>
                   </div>
 
-                  <button onClick={() => router.push("/checkout")} className="font-bold mb-6 bg-[var(--lime)] text-black px-4 py-2 space-x-2 rounded-lg items-center uppercase flex text-lg justify-center mx-8">
+                  <button onClick={() => router.push("/checkout")} className="cursor-pointer font-bold mb-6 bg-[var(--lime)] text-black px-4 py-2 space-x-2 rounded-lg items-center uppercase flex text-lg justify-center mx-8">
                     <img src="/cart.svg" alt="cart" className="w-4 h-4"/>
                     <span className="font-bold text-lg">Buy now</span>
                     <img className="text-black fill-black w-6 h-6 rotate-31" src="/arrow-black.svg" alt=""/>
@@ -413,9 +412,22 @@ export default function Home() {
                       alt="Barber chair at Dee Yonder Men's Hair Studio"
                       className="stocklist-image"
                     /> */}
+
+                    <div className="bg-[#DBE351]/20 rounded-xl p-4 contact-us">
+                      <h5>Contact Us</h5>
+                      <div className="inline-flex items-center justify-center space-x-2">
+                        <p className="flex items-center justify-center space-x-1 border-r border-gray-500 pr-3">
+                          <img className="w-5 h-5" src="/email.svg" alt=""/>
+                          <a href="mailto:hey@demecult.com">hey@demecult.com</a>
+                        </p>
+                        <a href="https://www.instagram.com/demeculture" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center space-x-1">
+                          <img className="w-6 h-6" src="/ig.svg" alt=""/>
+                          <span className="whitespace-nowrap">Follow us</span>
+                        </a>
+                      </div>
+                    </div>
                   </div>
 
-                  
                 </>
               ) : (
                 <>
